@@ -6,10 +6,10 @@ namespace ShareYou.Infrastructure.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+[Authorize(Policy = "HasAccount")]
 public class GroupsController : ControllerBase
 {
-    // Кэшировать на стороне клиента
+    [ResponseCache(CacheProfileName = "UserGroups", Duration = 6400 * 24,  Location = ResponseCacheLocation.Client)]
     [HttpGet("get-all")]
     public async Task<IActionResult> GetGroups()
     {

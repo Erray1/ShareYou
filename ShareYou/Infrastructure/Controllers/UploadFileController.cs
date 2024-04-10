@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using ShareYou.Infrastructure.DTO.Requests;
 
 namespace ShareYou.Infrastructure.Controllers;
+
 [Route("api/[controller]")]
-[Authorize]
 [ApiController]
+[Authorize(Policy = "HasAccount")]
 public class UploadFileController : ControllerBase
 {
     [HttpPost]

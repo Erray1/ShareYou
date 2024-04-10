@@ -6,8 +6,8 @@ namespace ShareYou.Infrastructure.Controllers;
 [Route("api/{contoller}")]
 public class DownloadFileController : ControllerBase
 {
-    [HttpGet]
-    public async Task<IActionResult> DownloadFile([FromQuery] string temporaryFileId)
+    [HttpGet("{temporaryFileId}")]
+    public async Task<IActionResult> DownloadFile(string temporaryFileId)
     {
         return StatusCode(StatusCodes.Status501NotImplemented);
     }

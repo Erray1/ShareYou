@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ShareYou.Application.SessionConnectionServices;
+using ShareYou.Domain.Entities;
+using System.Security.Claims;
 
 namespace ShareYou.Infrastructure.Controllers;
 
@@ -8,13 +13,34 @@ namespace ShareYou.Infrastructure.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class JoinController : ControllerBase
 {
-    [HttpPost()]
-    public async Task<IActionResult> JoinWhiteboard([FromQuery] string whiteboardID)
+    private readonly ISessionConnectionWorker _connectionWorker;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly UserManager<User> _userManager;
+    public JoinController(
+        ISessionConnectionWorker connectionWorker, 
+        IServiceProvider serviceProvider,
+        UserManager<User> userManager)
     {
-        // return redirect to smwr
-        return StatusCode(StatusCodes.Status501NotImplemented);
+        _connectionWorker = connectionWorker; 
+        _serviceProvider = serviceProvider;
+        _userManager = userManager;
+    }
+
+    [HttpPatch("{whiteboardID}")]
+    public async Task<IActionResult> JoinWhiteboard(string whiteboardID)
+    {
+        var userId = (await _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier)!.Value))!.Id.ToString(); // ????
+        var connectionState = await _connectionWorker.GetSessionConnectionStateAsync(whiteboardID, userId);
+        if (!connectionState.CanJoin)
+        {
+            return Forbid(connectionState.ErrorMessage!);        
+        }
+        var baseAddress = HttpContext.Request.PathBase;
+        var connectionString = ConnectionsUtilities.GenerateSessionConnectionString(baseAddress, whiteboardID, connectionState);
+        return Redirect(connectionString);
     }
 }
 

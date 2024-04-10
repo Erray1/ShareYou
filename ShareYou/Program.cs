@@ -1,3 +1,4 @@
+using MassTransit;
 using ShareYou.Client.Pages;
 using ShareYou.Components;
 using ShareYou.Infrastructure.Hubs;
@@ -9,6 +10,15 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddSignalR();
+builder.Services.AddResponseCaching();
+
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingInMemory((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 
@@ -29,7 +39,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapHub<WhiteboardHub>("/whiteboardhub");
+app.UseResponseCaching();
+
+app.MapHub<SessionHub>("/sessionhub");
 
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
