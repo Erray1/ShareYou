@@ -20,9 +20,19 @@ public class WhiteboardsRepository : IWhiteboardsRepository
         throw new NotImplementedException();
     }
 
+    public Task<List<object>> GetWhiteboardsAccessableByUserAsync(string userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<List<object>> GetWhiteboardsForUserAsync(string userId)
     {
+        throw new NotImplementedException();
+    }
 
+    public Task<List<object>> GetWhiteboardsOwnedByUserAsync(string userId)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<object> RenameWhiteboard(string whiteboardId, string userRequestedId, string newName)

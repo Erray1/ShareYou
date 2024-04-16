@@ -12,12 +12,12 @@ public class WhiteboardFactory : IWhiteboardFactory
     {
         var whiteboard = new Whiteboard()
         {
-            HostID = hostId,
-            AccessStatus = WhiteboardAccess.Closed,
-            WhiteboardType = type,
-            DateCreated = DateOnly.FromDateTime(DateTime.Now),
-            MaxConnections = maxConnections[userTier],
-            LifeTime = whiteboardLifetimeDays[userTier]
+            //HostID = hostId,
+            //AccessStatus = WhiteboardAccess.Closed,
+            //WhiteboardType = type,
+            //DateCreated = DateOnly.FromDateTime(DateTime.Now),
+            //MaxConnections = maxConnections[userTier],
+            //LifeTime = whiteboardLifetimeDays[userTier]
         };
         return whiteboard;
     }

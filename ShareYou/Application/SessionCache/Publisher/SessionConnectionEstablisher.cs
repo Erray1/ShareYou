@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using ShareYou.Application.SessionCache.Contracts.Requests;
 using ShareYou.Application.SessionCache.Contracts.Responses;
+using ShareYou.Domain.Entities;
 
 namespace ShareYou.Application.SessionCache.Publisher;
 
@@ -20,25 +21,22 @@ public class SessionConnectionEstablisher : ISessionConnectionEstablisher
     }
     public async Task<SessionConnectionState> AllowUserToConnect(string userId, string whiteboardId)
     {
-        var client = _serviceProvider.GetRequiredService<IRequestClient<SessionConnectionRequest>>();
-        var request = SessionRequestContractsFactory.Connection.AllowUserToConnect(userId, whiteboardId);
-        var response = await client.GetResponse<SessionConnectionState>(request);
+        var request = new AllowUserToJoinSessionRequest { SessionID = whiteboardId, UserID = userId };
+        var response = await _requestClient.GetResponse<SessionConnectionState>(request);
         return response.Message;
     }
 
     public async Task<SessionAccessibilityStatus> CheckSessionAccessibility(string whiteboardId)
     {
-        var client = _serviceProvider.GetRequiredService<IRequestClient<SessionAccessibilityStatus>>();
-        var request = SessionRequestContractsFactory.Connection.CheckSessionAccessibility(whiteboardId);
-        var response = await client.GetResponse<SessionAccessibilityStatus>(request);
+        var request = new ChechSessionAccesibilityRequest { SessionID = whiteboardId };
+        var response = await _requestClient.GetResponse<SessionAccessibilityStatus>(request);
         return response.Message;
     }
 
     public async Task<SessionConnectionState> InitiateSessionAndGetUserConnectionCridentials(string userId, string whiteboardId)
     {
-        var client = _serviceProvider.GetRequiredService<IRequestClient<SessionConnectionRequest>>();
-        var request = SessionRequestContractsFactory.Connection.InitiateSessionAndGetUserConnectionCridentials(userId, whiteboardId);
-        var response = await client.GetResponse<SessionConnectionState>(request);
+        var request = new InitiateSessionRequest { SessionID = whiteboardId, UserID = userId };
+        var response = await _requestClient.GetResponse<SessionConnectionState>(request);
         return response.Message;
     }
 }

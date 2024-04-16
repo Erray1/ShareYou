@@ -1,9 +1,7 @@
 ﻿namespace ShareYou.Application.SessionCache.Contracts.Requests;
 
-public record SessionConnectionRequest
+public abstract class SessionConnectionRequest
 {
-    public Guid ID { get; init; }
+    public Guid ID { get; init; } = Guid.NewGuid();
     public required string SessionID { get; init; }
-    public string? UserID { get; init; }
-    public SessionConnectionCommand Command { get; init; }
 }

@@ -1,7 +1,7 @@
 using MassTransit;
-using ShareYou.Client.Pages;
 using ShareYou.Components;
 using ShareYou.Infrastructure.Hubs;
+using Swashbuckle.AspNetCore.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddControllers();
+
 builder.Services.AddSignalR();
 builder.Services.AddResponseCaching();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(config =>
 {
@@ -26,6 +29,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -46,5 +51,7 @@ app.MapHub<SessionHub>("/sessionhub");
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(ShareYou.Client._Imports).Assembly);
+
+app.MapControllers();
 
 app.Run();
