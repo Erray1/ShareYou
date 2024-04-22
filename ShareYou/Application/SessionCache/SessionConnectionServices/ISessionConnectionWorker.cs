@@ -1,6 +1,6 @@
 ﻿using ShareYou.Application.SessionCache.Contracts.Responses;
 
-namespace ShareYou.Application.SessionConnectionServices;
+namespace ShareYou.Application.SessionCache.SessionConnectionServices;
 
 public interface ISessionConnectionWorker
 {

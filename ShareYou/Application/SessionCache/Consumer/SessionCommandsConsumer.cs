@@ -1,19 +1,18 @@
-﻿using MassTransit;
-using ShareYou.Application.SessionCache.Contracts.Requests.Commands;
+﻿namespace ShareYou.Application.SessionCache.Consumer;
 
-namespace ShareYou.Application.SessionCache.Consumer;
-
-public sealed class SessionCommandsConsumer : IConsumer<SessionCommand>
+public sealed class SessionCommandsConsumer
 {
     private readonly IServiceProvider _serviceProvider;
-    public SessionCommandsConsumer(IServiceProvider serviceProvider)
+    private readonly ISessionCacheService _sessionCache;
+    private readonly ILogger<SessionCommandsConsumer> _logger;
+    public SessionCommandsConsumer(
+        IServiceProvider serviceProvider,
+        ISessionCacheService sessionCache, 
+        ILogger<SessionCommandsConsumer> logger)
     {
         _serviceProvider = serviceProvider;
-    }
-
-    public async Task Consume(ConsumeContext<SessionCommand> context)
-    {
-        throw new NotImplementedException();
+        _sessionCache = sessionCache;
+        _logger = logger;
     }
 
     // Приватные методы для обработки каждой команды

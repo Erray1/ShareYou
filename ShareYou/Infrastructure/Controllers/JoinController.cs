@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ShareYou.Application.SessionConnectionServices;
+using ShareYou.Application.SessionCache.SessionConnectionServices;
 using ShareYou.Domain.Entities;
 using System.Security.Claims;
 
@@ -40,6 +40,7 @@ public class JoinController : ControllerBase
         }
         var baseAddress = HttpContext.Request.PathBase;
         var connectionString = ConnectionsUtilities.GenerateSessionConnectionString(baseAddress, whiteboardID, connectionState);
+        
         return Redirect(connectionString);
     }
 }

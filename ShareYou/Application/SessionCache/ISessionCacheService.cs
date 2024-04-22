@@ -1,15 +1,17 @@
-﻿using ShareYou.Application.SessionCache.Contracts.Responses;
+﻿using Ardalis.Result;
+using ShareYou.Application.SessionCache.Contracts.Responses;
+using ShareYou.Domain.Session;
 
 namespace ShareYou.Application.SessionCache;
 
 public interface ISessionCacheService
 {
-    public Task<object> RetrieveSessionDataAsync(string whiteboardId, bool refresh = true);
-    public Task<SessionAccessibilityStatus> IsSessionOpenForConnections(string whiteboardId);
+    public Task<Result<Session>> RetrieveSessionDataAsync(string sessionId, bool refresh = true);
+    public Task<SessionAccessibilityStatus> IsSessionOpenForConnections(string sessionId);
     // add user to pending
-    public Task<SessionConnectionState> InitiateUserConnectionAsync(string whiteboardId, string userId);
-    public Task<bool> OpenSessionAsync(string whiteboardId);
-    public Task<bool> CloseSessionAsync(string whiteboardId);
-    
+    public Task<SessionConnectionState> InitiateUserConnectionAsync(string sessionId, string userId);
+    public Task<Result> CloseUserConnectionAsync(string sessionId, string userId);
+    public Task<Result> OpenSessionAsync(string sessionId);
+    public Task<Result> CloseSessionIfEmptyAsync(string sessionId);
 }
 

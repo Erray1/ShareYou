@@ -1,1 +1,0 @@
-﻿namespace ShareYou.Domain.WhiteboardMetadata;

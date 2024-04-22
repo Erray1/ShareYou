@@ -1,10 +1,7 @@
-﻿
-using ShareYou.Application.SessionCache;
-using ShareYou.Application.SessionCache.Contracts.Responses;
-using ShareYou.Application.SessionCache.Publisher;
+﻿using ShareYou.Application.SessionCache.Contracts.Responses;
 using ShareYou.Domain.Services;
 
-namespace ShareYou.Application.SessionConnectionServices;
+namespace ShareYou.Application.SessionCache.SessionConnectionServices;
 
 public class SessionConnectionWorker : ISessionConnectionWorker
 {
@@ -17,7 +14,7 @@ public class SessionConnectionWorker : ISessionConnectionWorker
         IServiceProvider serviceProvider
         )
     {
-       _connectionEstablisher = connectionEstablisher;
+        _connectionEstablisher = connectionEstablisher;
         _metadataRepo = metadataRepo;
         _serviceProvider = serviceProvider;
     }
@@ -34,7 +31,7 @@ public class SessionConnectionWorker : ISessionConnectionWorker
         {
             return SessionConnectionState.Error(sessionStatus.ErrorMessage!);
         }
-        
+
         if (!sessionStatus.IsRunning)
         {
             return await _connectionEstablisher.InitiateSessionAndGetUserConnectionCridentials(userId, whiteboardId);
