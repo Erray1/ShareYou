@@ -1,5 +1,5 @@
 ﻿
-using ShareYou.Domain.WhiteboardMetadata;
+using ShareYou.Domain.WhiteboardData;
 
 namespace ShareYou.Domain.Entities.Nested;
 public class UserStatusForWhiteboard

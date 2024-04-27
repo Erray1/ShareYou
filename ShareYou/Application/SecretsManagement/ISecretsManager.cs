@@ -3,4 +3,5 @@
 public interface ISecretsManager
 {
     public string GetDbConnectionString(string dbConnectionStringName);
+    public string GetJWTSecurityKey();
 }

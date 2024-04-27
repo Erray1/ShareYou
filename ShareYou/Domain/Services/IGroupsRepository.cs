@@ -1,12 +1,15 @@
-﻿using ShareYou.Infrastructure.DTO.Requests;
+﻿using Ardalis.Result;
+using ShareYou.Domain.Entities;
+using ShareYou.Infrastructure.DTO.Requests;
+using System.Text.RegularExpressions;
 
 namespace ShareYou.Domain.Services;
 public interface IGroupsRepository
 {
-    public Task<object> GetGroupsAsync(string userId);
-    public Task<object> GetGroupDataAsync(string groupId);
-    public Task<object> CreateGroupAsync(string groupName, string userRequestedId);
-    public Task<object> JoinGroupAsync(string groupId, string userId);
-    public Task<object> DeleteGroupAsync(string groupId, string userRequestedId);
+    public Task<Result<List<WorkGroup>>> GetGroupsAsync(string userId);
+    public Task<Result<WorkGroup>> GetGroupDataAsync(string groupId);
+    public Task<Result> CreateGroupAsync(string groupName, string userRequestedId);
+    public Task<Result> AddUserToGroupAsync(string groupId, string userId);
+    public Task<Result> DeleteGroupAsync(string groupId, string userRequestedId);
 }
 

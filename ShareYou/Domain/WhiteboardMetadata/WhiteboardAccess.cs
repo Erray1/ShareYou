@@ -1,4 +1,4 @@
-﻿namespace ShareYou.Domain.WhiteboardMetadata;
+﻿namespace ShareYou.Domain.WhiteboardData;
 
 public enum WhiteboardAccess
 {

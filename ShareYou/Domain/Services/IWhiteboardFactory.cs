@@ -1,9 +1,9 @@
 ﻿using ShareYou.Domain.Entities;
 using ShareYou.Domain.UserMetadata;
-using ShareYou.Domain.WhiteboardMetadata;
+using ShareYou.Domain.WhiteboardData;
 
 namespace ShareYou.Domain.Services;
-public interface IWhiteboardFactory
+public interface IWhiteboardMetadataFactory
 {
-    public Whiteboard CreateNew(UserTier userTier, string hostId, WhiteboardType type = WhiteboardType.Draw);
+    public WhiteboardMetadata CreateNew(string whiteboardId, string whiteboardName, string hostId, UserTier userTier, WhiteboardType type = WhiteboardType.Draw);
 }

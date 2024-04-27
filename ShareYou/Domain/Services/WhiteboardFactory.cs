@@ -1,10 +1,10 @@
 ﻿using ShareYou.Domain.Entities;
 using ShareYou.Domain.UserMetadata;
-using ShareYou.Domain.WhiteboardMetadata;
+using ShareYou.Domain.WhiteboardData;
 
 namespace ShareYou.Domain.Services;
 
-public class WhiteboardFactory : IWhiteboardFactory
+public class WhiteboardFactory : IWhiteboardMetadataFactory
 {
     private readonly Dictionary<UserTier, int> maxConnections;
     private readonly Dictionary<UserTier, int?> whiteboardLifetimeDays;

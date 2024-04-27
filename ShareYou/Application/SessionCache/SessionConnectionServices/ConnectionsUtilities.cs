@@ -1,5 +1,5 @@
 ﻿using ShareYou.Application.SessionCache.Contracts.Responses;
-using ShareYou.Domain.WhiteboardMetadata;
+using ShareYou.Domain.WhiteboardData;
 
 namespace ShareYou.Application.SessionCache.SessionConnectionServices;
 

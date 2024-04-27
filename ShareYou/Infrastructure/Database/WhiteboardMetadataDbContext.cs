@@ -18,17 +18,21 @@ public class WhiteboardMetadataDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        if (builder.IsConfigured) return;
-
+        var connectionString = _secretsManager.GetDbConnectionString(this.GetType().Name);
+        builder.UseNpgsql(connectionString);
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<WhiteboardMetadata>()
             .HasKey(e => e.ID);
+            
         builder.Entity<WhiteboardMetadata>()
             .Property(e => e.WhiteboardType)
             .HasConversion<int>();
         // later
+        builder.Entity<WhiteboardMetadata>()
+            .ComplexProperty(e => e.InvitedUsers);
+            
     }
 
 }
